@@ -1,0 +1,226 @@
+destination,state,destination_type,avg_cost_per_day,destination_rating,student_friendly,best_season,latitude,longitude,activity,activity_duration_hrs,activity_cost,budget_tier,daily_budget,recommended
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Swimming,2,0,low,500,0
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Swimming,2,0,medium,1000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Swimming,2,0,high,2000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Snorkeling,3,300,low,500,0
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Snorkeling,3,300,medium,1000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Snorkeling,3,300,high,2000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Beach Volleyball,2,0,low,500,0
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Beach Volleyball,2,0,medium,1000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Beach Volleyball,2,0,high,2000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Sunset Walk,1,0,low,500,0
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Sunset Walk,1,0,medium,1000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Sunset Walk,1,0,high,2000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Water Sports,4,500,low,500,0
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Water Sports,4,500,medium,1000,1
+Goa,Goa,Beach,800,4.5,1,Winter,15.2993,74.124,Water Sports,4,500,high,2000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Trekking,5,0,low,500,0
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Trekking,5,0,medium,1000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Trekking,5,0,high,2000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Paragliding,3,800,low,500,0
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Paragliding,3,800,medium,1000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Paragliding,3,800,high,2000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Camping,8,600,low,500,0
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Camping,8,600,medium,1000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Camping,8,600,high,2000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Photography,3,0,low,500,0
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Photography,3,0,medium,1000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Photography,3,0,high,2000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Local Market Visit,2,0,low,500,0
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Local Market Visit,2,0,medium,1000,1
+Manali,Himachal Pradesh,Hills,700,4.6,1,Summer,32.2396,77.1887,Local Market Visit,2,0,high,2000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Fort Visit,4,200,low,500,0
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Fort Visit,4,200,medium,1000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Fort Visit,4,200,high,2000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Museum Tour,3,150,low,500,0
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Museum Tour,3,150,medium,1000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Museum Tour,3,150,high,2000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,City Walk,3,0,low,500,0
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,City Walk,3,0,medium,1000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,City Walk,3,0,high,2000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Local Cuisine Tour,2,0,low,500,0
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Local Cuisine Tour,2,0,medium,1000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Local Cuisine Tour,2,0,high,2000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Cultural Show,2,300,low,500,0
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Cultural Show,2,300,medium,1000,1
+Jaipur,Rajasthan,Heritage,600,4.4,1,Winter,26.9124,75.7873,Cultural Show,2,300,high,2000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,River Rafting,4,800,low,500,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,River Rafting,4,800,medium,1000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,River Rafting,4,800,high,2000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Rock Climbing,3,500,low,500,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Rock Climbing,3,500,medium,1000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Rock Climbing,3,500,high,2000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Zip-lining,2,600,low,500,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Zip-lining,2,600,medium,1000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Zip-lining,2,600,high,2000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Bungee Jumping,1,1500,low,500,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Bungee Jumping,1,1500,medium,1000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Bungee Jumping,1,1500,high,2000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Camping,8,600,low,500,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Camping,8,600,medium,1000,1
+Rishikesh,Uttarakhand,Adventure,500,4.7,1,Summer,30.0869,78.2676,Camping,8,600,high,2000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Trekking,5,0,low,500,0
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Trekking,5,0,medium,1000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Trekking,5,0,high,2000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Paragliding,3,800,low,500,0
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Paragliding,3,800,medium,1000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Paragliding,3,800,high,2000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Camping,8,600,low,500,0
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Camping,8,600,medium,1000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Camping,8,600,high,2000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Photography,3,0,low,500,0
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Photography,3,0,medium,1000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Photography,3,0,high,2000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Local Market Visit,2,0,low,500,0
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Local Market Visit,2,0,medium,1000,1
+Darjeeling,West Bengal,Hills,650,4.5,1,Spring,27.036,88.2627,Local Market Visit,2,0,high,2000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Fort Visit,4,200,low,500,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Fort Visit,4,200,medium,1000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Fort Visit,4,200,high,2000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Museum Tour,3,150,low,500,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Museum Tour,3,150,medium,1000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Museum Tour,3,150,high,2000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,City Walk,3,0,low,500,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,City Walk,3,0,medium,1000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,City Walk,3,0,high,2000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Local Cuisine Tour,2,0,low,500,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Local Cuisine Tour,2,0,medium,1000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Local Cuisine Tour,2,0,high,2000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Cultural Show,2,300,low,500,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Cultural Show,2,300,medium,1000,1
+Hampi,Karnataka,Heritage,400,4.6,1,Winter,15.335,76.46,Cultural Show,2,300,high,2000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Wildlife Safari,5,500,low,500,0
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Wildlife Safari,5,500,medium,1000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Wildlife Safari,5,500,high,2000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Waterfall Hike,4,0,low,500,0
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Waterfall Hike,4,0,medium,1000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Waterfall Hike,4,0,high,2000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Bird Watching,3,0,low,500,0
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Bird Watching,3,0,medium,1000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Bird Watching,3,0,high,2000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Coffee Plantation Tour,3,200,low,500,0
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Coffee Plantation Tour,3,200,medium,1000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Coffee Plantation Tour,3,200,high,2000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Cycling,3,100,low,500,0
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Cycling,3,100,medium,1000,1
+Coorg,Karnataka,Nature,900,4.4,1,Monsoon,12.3375,75.8069,Cycling,3,100,high,2000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Ghat Walk,2,0,low,500,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Ghat Walk,2,0,medium,1000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Ghat Walk,2,0,high,2000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Aarti Ceremony,2,0,low,500,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Aarti Ceremony,2,0,medium,1000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Aarti Ceremony,2,0,high,2000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Temple Tour,4,0,low,500,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Temple Tour,4,0,medium,1000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Temple Tour,4,0,high,2000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Yoga Class,2,200,low,500,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Yoga Class,2,200,medium,1000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Yoga Class,2,200,high,2000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Boat Ride,1,150,low,500,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Boat Ride,1,150,medium,1000,1
+Varanasi,Uttar Pradesh,Spiritual,500,4.3,1,Winter,25.3176,82.9739,Boat Ride,1,150,high,2000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Trekking,5,0,low,500,0
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Trekking,5,0,medium,1000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Trekking,5,0,high,2000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Paragliding,3,800,low,500,0
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Paragliding,3,800,medium,1000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Paragliding,3,800,high,2000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Camping,8,600,low,500,0
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Camping,8,600,medium,1000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Camping,8,600,high,2000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Photography,3,0,low,500,0
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Photography,3,0,medium,1000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Photography,3,0,high,2000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Local Market Visit,2,0,low,500,0
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Local Market Visit,2,0,medium,1000,1
+Munnar,Kerala,Hills,750,4.5,1,Monsoon,10.0889,77.0595,Local Market Visit,2,0,high,2000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,River Rafting,4,800,low,500,0
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,River Rafting,4,800,medium,1000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,River Rafting,4,800,high,2000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Rock Climbing,3,500,low,500,0
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Rock Climbing,3,500,medium,1000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Rock Climbing,3,500,high,2000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Zip-lining,2,600,low,500,0
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Zip-lining,2,600,medium,1000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Zip-lining,2,600,high,2000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Bungee Jumping,1,1500,low,500,0
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Bungee Jumping,1,1500,medium,1000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Bungee Jumping,1,1500,high,2000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Camping,8,600,low,500,0
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Camping,8,600,medium,1000,1
+Spiti Valley,Himachal Pradesh,Adventure,600,4.8,1,Summer,32.2458,78.0317,Camping,8,600,high,2000,1
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Swimming,2,0,low,500,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Swimming,2,0,medium,1000,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Swimming,2,0,high,2000,1
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Snorkeling,3,300,low,500,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Snorkeling,3,300,medium,1000,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Snorkeling,3,300,high,2000,1
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Beach Volleyball,2,0,low,500,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Beach Volleyball,2,0,medium,1000,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Beach Volleyball,2,0,high,2000,1
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Sunset Walk,1,0,low,500,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Sunset Walk,1,0,medium,1000,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Sunset Walk,1,0,high,2000,1
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Water Sports,4,500,low,500,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Water Sports,4,500,medium,1000,0
+Andaman Islands,Andaman,Beach,1500,4.7,0,Winter,11.7401,92.6586,Water Sports,4,500,high,2000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Fort Visit,4,200,low,500,0
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Fort Visit,4,200,medium,1000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Fort Visit,4,200,high,2000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Museum Tour,3,150,low,500,0
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Museum Tour,3,150,medium,1000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Museum Tour,3,150,high,2000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,City Walk,3,0,low,500,0
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,City Walk,3,0,medium,1000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,City Walk,3,0,high,2000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Local Cuisine Tour,2,0,low,500,0
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Local Cuisine Tour,2,0,medium,1000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Local Cuisine Tour,2,0,high,2000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Cultural Show,2,300,low,500,0
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Cultural Show,2,300,medium,1000,1
+Udaipur,Rajasthan,Heritage,800,4.6,1,Winter,24.5854,73.7125,Cultural Show,2,300,high,2000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,River Rafting,4,800,low,500,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,River Rafting,4,800,medium,1000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,River Rafting,4,800,high,2000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Rock Climbing,3,500,low,500,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Rock Climbing,3,500,medium,1000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Rock Climbing,3,500,high,2000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Zip-lining,2,600,low,500,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Zip-lining,2,600,medium,1000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Zip-lining,2,600,high,2000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Bungee Jumping,1,1500,low,500,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Bungee Jumping,1,1500,medium,1000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Bungee Jumping,1,1500,high,2000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Camping,8,600,low,500,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Camping,8,600,medium,1000,1
+Kasol,Himachal Pradesh,Adventure,450,4.5,1,Summer,32.0097,77.3143,Camping,8,600,high,2000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Swimming,2,0,low,500,0
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Swimming,2,0,medium,1000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Swimming,2,0,high,2000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Snorkeling,3,300,low,500,0
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Snorkeling,3,300,medium,1000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Snorkeling,3,300,high,2000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Beach Volleyball,2,0,low,500,0
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Beach Volleyball,2,0,medium,1000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Beach Volleyball,2,0,high,2000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Sunset Walk,1,0,low,500,0
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Sunset Walk,1,0,medium,1000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Sunset Walk,1,0,high,2000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Water Sports,4,500,low,500,0
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Water Sports,4,500,medium,1000,1
+Pondicherry,Tamil Nadu,Beach,700,4.3,1,Winter,11.9416,79.8083,Water Sports,4,500,high,2000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,River Rafting,4,800,low,500,0
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,River Rafting,4,800,medium,1000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,River Rafting,4,800,high,2000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Rock Climbing,3,500,low,500,0
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Rock Climbing,3,500,medium,1000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Rock Climbing,3,500,high,2000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Zip-lining,2,600,low,500,0
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Zip-lining,2,600,medium,1000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Zip-lining,2,600,high,2000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Bungee Jumping,1,1500,low,500,0
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Bungee Jumping,1,1500,medium,1000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Bungee Jumping,1,1500,high,2000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Camping,8,600,low,500,0
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Camping,8,600,medium,1000,1
+Leh Ladakh,Jammu & Kashmir,Adventure,1000,4.9,1,Summer,34.1526,77.5771,Camping,8,600,high,2000,1

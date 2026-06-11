@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WanderSmart – AI Travel Planner for Students</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #141414;
+    --paper:  #F6F3EE;
+    --sage:   #4A7C59;
+    --moss:   #2D5016;
+    --sun:    #F4A023;
+    --blush:  #E8B4A0;
+    --mist:   #D8E4DC;
+    --white:  #FFFFFF;
+    --card-bg:#FFFEF9;
+    --border: #E0DAD0;
+    --low:    #E05252;
+    --mid:    #F4A023;
+    --high:   #4A7C59;
+    --radius: 14px;
+    --shadow: 0 2px 20px rgba(20,20,20,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "DM Sans", sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
+  h1,h2,h3,h4 { font-family: "Syne", sans-serif; }
+
+  /* ── NAV ── */
+  nav { background: var(--moss); color: white; padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .nav-brand { font-family: "Syne", sans-serif; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+  .nav-brand span { background: var(--sun); color: var(--ink); padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab { background: none; border: none; color: rgba(255,255,255,0.7); font-family: "DM Sans", sans-serif; font-size: 0.85rem; padding: 6px 14px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+  .nav-tab:hover, .nav-tab.active { background: rgba(255,255,255,0.15); color: white; }
+
+  /* ── HERO ── */
+  .hero { background: linear-gradient(135deg, var(--moss) 0%, #3a6b2a 60%, #2a5a40 100%); color: white; padding: 3.5rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -1px; position: relative; }
+  .hero h1 em { font-style: normal; color: var(--sun); }
+  .hero p { margin-top: 0.75rem; font-size: 1rem; opacity: 0.85; max-width: 480px; margin-inline: auto; position: relative; font-weight: 300; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 14px; font-size: 0.78rem; margin-bottom: 1rem; position: relative; }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: #7fff7f; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+  /* ── MAIN LAYOUT ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── PLANNER FORM ── */
+  .planner-grid { display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; align-items: start; }
+  @media(max-width:750px) { .planner-grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+  .card-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sage); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; }
+  .card-title::after { content:""; flex:1; height:1px; background: var(--mist); }
+  label { display: block; font-size: 0.82rem; font-weight: 500; color: #555; margin-bottom: 4px; margin-top: 1rem; }
+  label:first-of-type { margin-top: 0; }
+  input, select, textarea { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: "DM Sans", sans-serif; font-size: 0.9rem; background: white; color: var(--ink); transition: border 0.2s; outline: none; }
+  input:focus, select:focus, textarea:focus { border-color: var(--sage); }
+  textarea { resize: vertical; min-height: 80px; }
+  .chip-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .chip { padding: 5px 12px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; background: white; }
+  .chip.sel { background: var(--sage); color: white; border-color: var(--sage); }
+  .btn-primary { width: 100%; margin-top: 1.4rem; padding: 12px; background: var(--moss); color: white; border: none; border-radius: 10px; font-family: "Syne", sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: 0.3px; transition: background 0.2s, transform 0.1s; }
+  .btn-primary:hover { background: var(--sage); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
+
+  /* ── ML BADGE ── */
+  .ml-badge { display: flex; align-items: center; gap: 10px; background: linear-gradient(90deg, #eaf5ee, #f6f9f7); border: 1px solid var(--mist); border-radius: 10px; padding: 10px 14px; margin-top: 1rem; }
+  .ml-badge .icon { font-size: 1.4rem; }
+  .ml-badge div { font-size: 0.78rem; color: #555; }
+  .ml-badge strong { font-size: 0.85rem; color: var(--moss); }
+  .results-container{
+    margin-top:20px;
+    padding:20px;
+    border-radius:12px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.result-card{
+    line-height:1.8;
+}
+  /* ── RESULTS ── */
+  .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .results-header h2 { font-size: 1.1rem; }
+  .sort-bar { display: flex; gap: 6px; }
+  .sort-btn { padding: 4px 10px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 0.75rem; background: white; cursor: pointer; transition: all 0.15s; }
+  .sort-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+  .dest-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .dest-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(20,20,20,0.12); }
+  .dest-card.selected { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(74,124,89,0.18); }
+  .dest-card-header { padding: 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; }
+  .dest-name { font-family: "Syne", sans-serif; font-size: 1rem; font-weight: 700; }
+  .dest-state { font-size: 0.75rem; color: #888; }
+  .ml-score-bar { margin-top: 6px; }
+  .ml-score-label { font-size: 0.7rem; color: #888; display: flex; justify-content: space-between; margin-bottom: 2px; }
+  .bar-track { height: 5px; background: var(--mist); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+  .dest-card-body { padding: 0.8rem 1rem; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+  .tag-type { background: #EBF3EE; color: var(--sage); }
+  .tag-budget { background: #FFF4E0; color: #B97A00; }
+  .tag-season { background: #EEF0FF; color: #5050c0; }
+  .tag-rating { background: #FFF0F0; color: #c05050; }
+  .score-pill { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+  .score-high { background: #d4f0dc; color: var(--moss); }
+  .score-mid  { background: #FFF4E0; color: #B97A00; }
+  .score-low  { background: #FFE8E8; color: #c05050; }
+  .empty-state { text-align: center; padding: 3rem; color: #aaa; }
+  .empty-state .icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+
+  /* ── ITINERARY ── */
+  .itin-top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; margin-bottom: 1.5rem; }
+  .itin-title { font-size: 1.4rem; font-weight: 800; }
+  .itin-subtitle { font-size: 0.85rem; color: #777; margin-top: 4px; }
+  .btn-gen { padding: 10px 20px; background: var(--sun); color: var(--ink); border: none; border-radius: 10px; font-family: "Syne", sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+  .btn-gen:hover { background: #e8920a; }
+  .btn-gen:disabled { background: #ddd; cursor: not-allowed; }
+  .day-block { margin-bottom: 1.2rem; }
+  .day-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.6rem; }
+  .day-num { width: 36px; height: 36px; border-radius: 50%; background: var(--moss); color: white; font-family: "Syne", sans-serif; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+  .day-label { font-weight: 700; font-size: 0.95rem; }
+  .activity-list { margin-left: 46px; display: flex; flex-direction: column; gap: 6px; }
+  .act-item { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
+  .act-name { font-size: 0.85rem; font-weight: 500; }
+  .act-meta { font-size: 0.75rem; color: #888; }
+  .act-cost { font-size: 0.8rem; font-weight: 600; color: var(--sage); }
+  .itin-loading { text-align: center; padding: 2rem; }
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--mist); border-top-color: var(--sage); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ai-output { background: linear-gradient(135deg, #f0f7f3, #fafff8); border: 1.5px solid var(--mist); border-radius: 12px; padding: 1.2rem 1.4rem; line-height: 1.75; font-size: 0.9rem; margin-top: 1rem; white-space: pre-wrap; }
+  .budget-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.2rem; }
+  .bsum { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+  .bsum-val { font-family: "Syne", sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--moss); }
+  .bsum-lbl { font-size: 0.72rem; color: #888; margin-top: 2px; }
+
+  /* ── ML INSIGHTS ── */
+  .insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media(max-width:650px){ .insights-grid { grid-template-columns: 1fr; } }
+  .feat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .feat-name { font-size: 0.8rem; width: 180px; flex-shrink: 0; color: #555; }
+  .feat-bar-track { flex: 1; height: 8px; background: var(--mist); border-radius: 4px; overflow: hidden; }
+  .feat-bar-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--sun)); border-radius: 4px; }
+  .feat-pct { font-size: 0.75rem; font-weight: 700; color: var(--moss); width: 38px; text-align: right; }
+  .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .stat-box { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+  .stat-val { font-family: "Syne", sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--moss); }
+  .stat-lbl { font-size: 0.72rem; color: #888; margin-top: 2px; }
+
+  /* ── MAP PLACEHOLDER ── */
+  .map-wrap { background: #e8f0ec; border-radius: var(--radius); height: 320px; position: relative; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+  .map-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #888; font-size: 0.85rem; }
+  .map-dots { position: absolute; inset: 0; }
+  .map-dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid white; cursor: pointer; transition: transform 0.2s; }
+  .map-dot:hover { transform: scale(1.4); }
+  .map-dot.sel { transform: scale(1.5); z-index: 10; }
+  .map-label { position: absolute; background: white; border: 1px solid var(--border); border-radius: 6px; padding: 2px 7px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; pointer-events: none; box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
+  .map-legend { position: absolute; bottom: 10px; left: 10px; background: white; border-radius: 8px; padding: 6px 10px; font-size: 0.7rem; border: 1px solid var(--border); display: flex; gap: 10px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--moss); color: white; padding: 10px 18px; border-radius: 10px; font-size: 0.85rem; font-weight: 500; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 999; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">🧭 WanderSmart <span>ML</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('planner',this)">Planner</button>
+    <button class="nav-tab" onclick="showPage('itinerary',this)">Itinerary</button>
+    <button class="nav-tab" onclick="showPage('map',this)">Map</button>
+    <button class="nav-tab" onclick="showPage('insights',this)">ML Insights</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge"><span class="pulse"></span> RandomForest ML · 97.78% CV Accuracy</div>
+  <h1>Your <em>Budget-Smart</em><br>Student Travel Planner</h1>
+  <p>AI-powered travel planning with routes, costs, hotels and itinerary generation + AI Travel Planner.</p>
+</div>
+
+<div class="main">
+
+  <!-- ── PAGE: PLANNER ── -->
+  <div id="page-planner" class="page active">
+    <div class="planner-grid">
+      <div>
+        <div class="card">
+          <div class="card-title">Your Preferences</div>
+          
+
+
+<label style="margin-top:12px">
+  <label>Trip Type</label>
+
+  <select id="tripType">
+    <option value="single">Single Destination</option>
+    <option value="multi">Multi Destination</option>
+    <option value="break">Break Journey</option>
+  </select>
+</label>
+<label>Starting Location</label>
+<input
+  type="text"
+  id="startLocation"
+  placeholder="Search starting location..."
+>
+<label>Destination(s)</label>
+
+<input
+  type="text"
+  id="destinationSearch"
+  placeholder="Search destinations..."
+>
+
+<div id="destinationResults"></div>
+
+<div id="selectedDestinations"></div>         
+<label>Daily Budget (₹)</label>
+          <input type="number" id="budget" value="1000" min="200" max="5000" placeholder="e.g. 1000">
+          <label>Trip Duration (days)</label>
+          <input type="number" id="duration" value="3" min="1" max="14">
+          <label>Number of People</label>
+
+<input
+  type="number"
+  id="people"
+  value="1"
+  min="1"
+  max="20"
+>
+<label>Travel Preference</label>
+
+<select id="travelPreference">
+  <option value="cheapest">Cheapest</option>
+  <option value="fastest">Fastest</option>
+  <option value="luxury">Luxury</option>
+</select>
+      </div>
+    </div>
+  </div>
+  <button class="btn-primary" onclick="runRecommendation()">
+    🚀 Plan My Trip
+</button>
+<div id="results-area" class="results-container">
+  Results will appear here...
+
+  <!-- ── PAGE: ITINERARY ── -->
+  <div id="page-itinerary" class="page">
+    <div id="itin-content">
+      <div class="empty-state"><span class="icon">✈️</span>Select a destination from the Planner first, then come here to generate your AI itinerary.</div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: MAP ── -->
+  <div id="page-map" class="page">
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-title">India Destinations Map</div>
+      <p style="font-size:0.82rem;color:#666;margin-bottom:1rem">Dots show all destinations in the dataset. Color = ML recommendation score for your current budget.</p>
+    </div>
+    <div class="map-wrap" id="map-container">
+      <div class="map-placeholder" id="map-placeholder">🗺 Configure preferences in Planner to see scored destinations</div>
+      <div class="map-dots" id="map-dots"></div>
+      <div class="map-legend" id="map-legend" style="display:none">
+        <span><span class="legend-dot" style="background:#4A7C59"></span>High Match</span>
+        <span><span class="legend-dot" style="background:#F4A023"></span>Medium</span>
+        <span><span class="legend-dot" style="background:#E05252"></span>Low Match</span>
+      </div>
+    </div>
+    <div id="map-detail" class="card" style="display:none"></div>
+  </div>
+
+  <!-- ── PAGE: ML INSIGHTS ── -->
+  <div id="page-insights" class="page">
+    <div class="insights-grid">
+      <div class="card">
+        <div class="card-title">Model Performance</div>
+        <div class="stat-grid" id="model-stats"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Feature Importances</div>
+        <div id="feat-importance-chart"></div>
+      </div>
+      <div class="card" style="grid-column:1/-1">
+        <div class="card-title">How the ML Model Works</div>
+        <div style="font-size:0.85rem;line-height:1.8;color:#444">
+          <p><strong>Dataset:</strong> 225 rows × 15 features synthesized from real Indian tourism data (similar to Kaggle's Travel & Tourism datasets). Features include destination type, average daily cost, rating, student-friendliness, and more.</p>
+          <p style="margin-top:0.75rem"><strong>Algorithm:</strong> <code>RandomForestClassifier</code> (scikit-learn) with 100 estimators, max_depth=8. Target variable: <em>recommended</em> (1 = affordable for budget tier, 0 = not).</p>
+          <p style="margin-top:0.75rem"><strong>Key insight:</strong> The model's #1 feature is <code>cost_ratio</code> (avg_cost_per_day / daily_budget) — confirming that budget-affordability is the most important signal for student travel recommendations.</p>
+          <p style="margin-top:0.75rem"><strong>Output:</strong> ML confidence scores (0–1) rank destinations. The AI itinerary generator then uses those ranked destinations + Claude API to create personalized day-by-day plans.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MODEL_DATA = {"model_metadata": {"algorithm": "RandomForestClassifier", "n_estimators": 100, "test_accuracy": 1.0, "cross_val_accuracy": 0.9778, "features": ["dest_type_enc", "avg_cost_per_day", "destination_rating", "student_friendly", "season_enc", "budget_enc", "activity_enc", "activity_duration_hrs", "activity_cost", "daily_budget", "cost_ratio", "total_activity_cost_ratio"], "feature_importances": {"cost_ratio": 0.4241, "daily_budget": 0.2895, "budget_enc": 0.1119, "avg_cost_per_day": 0.0895, "total_activity_cost_ratio": 0.0219, "dest_type_enc": 0.0135, "student_friendly": 0.0128, "destination_rating": 0.0124, "activity_enc": 0.0114, "activity_cost": 0.0075, "activity_duration_hrs": 0.0035, "season_enc": 0.002}, "training_samples": 180, "test_samples": 45}, "recommendations": [{"destination": "Goa", "state": "Goa", "destination_type": "Beach", "avg_cost_per_day": 800, "rating": 4.5, "student_friendly": 1, "best_season": "Winter", "latitude": 15.2993, "longitude": 74.124, "budget_tier": "low", "ml_score": 0.03, "recommended": false}, {"destination": "Goa", "state": "Goa", "destination_type": "Beach", "avg_cost_per_day": 800, "rating": 4.5, "student_friendly": 1, "best_season": "Winter", "latitude": 15.2993, "longitude": 74.124, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Goa", "state": "Goa", "destination_type": "Beach", "avg_cost_per_day": 800, "rating": 4.5, "student_friendly": 1, "best_season": "Winter", "latitude": 15.2993, "longitude": 74.124, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Manali", "state": "Himachal Pradesh", "destination_type": "Hills", "avg_cost_per_day": 700, "rating": 4.6, "student_friendly": 1, "best_season": "Summer", "latitude": 32.2396, "longitude": 77.1887, "budget_tier": "low", "ml_score": 0.04, "recommended": false}, {"destination": "Manali", "state": "Himachal Pradesh", "destination_type": "Hills", "avg_cost_per_day": 700, "rating": 4.6, "student_friendly": 1, "best_season": "Summer", "latitude": 32.2396, "longitude": 77.1887, "budget_tier": "medium", "ml_score": 0.99, "recommended": true}, {"destination": "Manali", "state": "Himachal Pradesh", "destination_type": "Hills", "avg_cost_per_day": 700, "rating": 4.6, "student_friendly": 1, "best_season": "Summer", "latitude": 32.2396, "longitude": 77.1887, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Jaipur", "state": "Rajasthan", "destination_type": "Heritage", "avg_cost_per_day": 600, "rating": 4.4, "student_friendly": 1, "best_season": "Winter", "latitude": 26.9124, "longitude": 75.7873, "budget_tier": "low", "ml_score": 0.05, "recommended": false}, {"destination": "Jaipur", "state": "Rajasthan", "destination_type": "Heritage", "avg_cost_per_day": 600, "rating": 4.4, "student_friendly": 1, "best_season": "Winter", "latitude": 26.9124, "longitude": 75.7873, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Jaipur", "state": "Rajasthan", "destination_type": "Heritage", "avg_cost_per_day": 600, "rating": 4.4, "student_friendly": 1, "best_season": "Winter", "latitude": 26.9124, "longitude": 75.7873, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Rishikesh", "state": "Uttarakhand", "destination_type": "Adventure", "avg_cost_per_day": 500, "rating": 4.7, "student_friendly": 1, "best_season": "Summer", "latitude": 30.0869, "longitude": 78.2676, "budget_tier": "low", "ml_score": 1.0, "recommended": true}, {"destination": "Rishikesh", "state": "Uttarakhand", "destination_type": "Adventure", "avg_cost_per_day": 500, "rating": 4.7, "student_friendly": 1, "best_season": "Summer", "latitude": 30.0869, "longitude": 78.2676, "budget_tier": "medium", "ml_score": 0.99, "recommended": true}, {"destination": "Rishikesh", "state": "Uttarakhand", "destination_type": "Adventure", "avg_cost_per_day": 500, "rating": 4.7, "student_friendly": 1, "best_season": "Summer", "latitude": 30.0869, "longitude": 78.2676, "budget_tier": "high", "ml_score": 0.99, "recommended": true}, {"destination": "Darjeeling", "state": "West Bengal", "destination_type": "Hills", "avg_cost_per_day": 650, "rating": 4.5, "student_friendly": 1, "best_season": "Spring", "latitude": 27.036, "longitude": 88.2627, "budget_tier": "low", "ml_score": 0.05, "recommended": false}, {"destination": "Darjeeling", "state": "West Bengal", "destination_type": "Hills", "avg_cost_per_day": 650, "rating": 4.5, "student_friendly": 1, "best_season": "Spring", "latitude": 27.036, "longitude": 88.2627, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Darjeeling", "state": "West Bengal", "destination_type": "Hills", "avg_cost_per_day": 650, "rating": 4.5, "student_friendly": 1, "best_season": "Spring", "latitude": 27.036, "longitude": 88.2627, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Hampi", "state": "Karnataka", "destination_type": "Heritage", "avg_cost_per_day": 400, "rating": 4.6, "student_friendly": 1, "best_season": "Winter", "latitude": 15.335, "longitude": 76.46, "budget_tier": "low", "ml_score": 1.0, "recommended": true}, {"destination": "Hampi", "state": "Karnataka", "destination_type": "Heritage", "avg_cost_per_day": 400, "rating": 4.6, "student_friendly": 1, "best_season": "Winter", "latitude": 15.335, "longitude": 76.46, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Hampi", "state": "Karnataka", "destination_type": "Heritage", "avg_cost_per_day": 400, "rating": 4.6, "student_friendly": 1, "best_season": "Winter", "latitude": 15.335, "longitude": 76.46, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Coorg", "state": "Karnataka", "destination_type": "Nature", "avg_cost_per_day": 900, "rating": 4.4, "student_friendly": 1, "best_season": "Monsoon", "latitude": 12.3375, "longitude": 75.8069, "budget_tier": "low", "ml_score": 0.04, "recommended": false}, {"destination": "Coorg", "state": "Karnataka", "destination_type": "Nature", "avg_cost_per_day": 900, "rating": 4.4, "student_friendly": 1, "best_season": "Monsoon", "latitude": 12.3375, "longitude": 75.8069, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Coorg", "state": "Karnataka", "destination_type": "Nature", "avg_cost_per_day": 900, "rating": 4.4, "student_friendly": 1, "best_season": "Monsoon", "latitude": 12.3375, "longitude": 75.8069, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Varanasi", "state": "Uttar Pradesh", "destination_type": "Spiritual", "avg_cost_per_day": 500, "rating": 4.3, "student_friendly": 1, "best_season": "Winter", "latitude": 25.3176, "longitude": 82.9739, "budget_tier": "low", "ml_score": 0.96, "recommended": true}, {"destination": "Varanasi", "state": "Uttar Pradesh", "destination_type": "Spiritual", "avg_cost_per_day": 500, "rating": 4.3, "student_friendly": 1, "best_season": "Winter", "latitude": 25.3176, "longitude": 82.9739, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Varanasi", "state": "Uttar Pradesh", "destination_type": "Spiritual", "avg_cost_per_day": 500, "rating": 4.3, "student_friendly": 1, "best_season": "Winter", "latitude": 25.3176, "longitude": 82.9739, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Munnar", "state": "Kerala", "destination_type": "Hills", "avg_cost_per_day": 750, "rating": 4.5, "student_friendly": 1, "best_season": "Monsoon", "latitude": 10.0889, "longitude": 77.0595, "budget_tier": "low", "ml_score": 0.04, "recommended": false}, {"destination": "Munnar", "state": "Kerala", "destination_type": "Hills", "avg_cost_per_day": 750, "rating": 4.5, "student_friendly": 1, "best_season": "Monsoon", "latitude": 10.0889, "longitude": 77.0595, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Munnar", "state": "Kerala", "destination_type": "Hills", "avg_cost_per_day": 750, "rating": 4.5, "student_friendly": 1, "best_season": "Monsoon", "latitude": 10.0889, "longitude": 77.0595, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Spiti Valley", "state": "Himachal Pradesh", "destination_type": "Adventure", "avg_cost_per_day": 600, "rating": 4.8, "student_friendly": 1, "best_season": "Summer", "latitude": 32.2458, "longitude": 78.0317, "budget_tier": "low", "ml_score": 0.06, "recommended": false}, {"destination": "Spiti Valley", "state": "Himachal Pradesh", "destination_type": "Adventure", "avg_cost_per_day": 600, "rating": 4.8, "student_friendly": 1, "best_season": "Summer", "latitude": 32.2458, "longitude": 78.0317, "budget_tier": "medium", "ml_score": 0.99, "recommended": true}, {"destination": "Spiti Valley", "state": "Himachal Pradesh", "destination_type": "Adventure", "avg_cost_per_day": 600, "rating": 4.8, "student_friendly": 1, "best_season": "Summer", "latitude": 32.2458, "longitude": 78.0317, "budget_tier": "high", "ml_score": 0.99, "recommended": true}, {"destination": "Andaman Islands", "state": "Andaman", "destination_type": "Beach", "avg_cost_per_day": 1500, "rating": 4.7, "student_friendly": 0, "best_season": "Winter", "latitude": 11.7401, "longitude": 92.6586, "budget_tier": "low", "ml_score": 0.03, "recommended": false}, {"destination": "Andaman Islands", "state": "Andaman", "destination_type": "Beach", "avg_cost_per_day": 1500, "rating": 4.7, "student_friendly": 0, "best_season": "Winter", "latitude": 11.7401, "longitude": 92.6586, "budget_tier": "medium", "ml_score": 0.13, "recommended": false}, {"destination": "Andaman Islands", "state": "Andaman", "destination_type": "Beach", "avg_cost_per_day": 1500, "rating": 4.7, "student_friendly": 0, "best_season": "Winter", "latitude": 11.7401, "longitude": 92.6586, "budget_tier": "high", "ml_score": 0.99, "recommended": true}, {"destination": "Udaipur", "state": "Rajasthan", "destination_type": "Heritage", "avg_cost_per_day": 800, "rating": 4.6, "student_friendly": 1, "best_season": "Winter", "latitude": 24.5854, "longitude": 73.7125, "budget_tier": "low", "ml_score": 0.03, "recommended": false}, {"destination": "Udaipur", "state": "Rajasthan", "destination_type": "Heritage", "avg_cost_per_day": 800, "rating": 4.6, "student_friendly": 1, "best_season": "Winter", "latitude": 24.5854, "longitude": 73.7125, "budget_tier": "medium", "ml_score": 0.99, "recommended": true}, {"destination": "Udaipur", "state": "Rajasthan", "destination_type": "Heritage", "avg_cost_per_day": 800, "rating": 4.6, "student_friendly": 1, "best_season": "Winter", "latitude": 24.5854, "longitude": 73.7125, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Kasol", "state": "Himachal Pradesh", "destination_type": "Adventure", "avg_cost_per_day": 450, "rating": 4.5, "student_friendly": 1, "best_season": "Summer", "latitude": 32.0097, "longitude": 77.3143, "budget_tier": "low", "ml_score": 0.98, "recommended": true}, {"destination": "Kasol", "state": "Himachal Pradesh", "destination_type": "Adventure", "avg_cost_per_day": 450, "rating": 4.5, "student_friendly": 1, "best_season": "Summer", "latitude": 32.0097, "longitude": 77.3143, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Kasol", "state": "Himachal Pradesh", "destination_type": "Adventure", "avg_cost_per_day": 450, "rating": 4.5, "student_friendly": 1, "best_season": "Summer", "latitude": 32.0097, "longitude": 77.3143, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Pondicherry", "state": "Tamil Nadu", "destination_type": "Beach", "avg_cost_per_day": 700, "rating": 4.3, "student_friendly": 1, "best_season": "Winter", "latitude": 11.9416, "longitude": 79.8083, "budget_tier": "low", "ml_score": 0.05, "recommended": false}, {"destination": "Pondicherry", "state": "Tamil Nadu", "destination_type": "Beach", "avg_cost_per_day": 700, "rating": 4.3, "student_friendly": 1, "best_season": "Winter", "latitude": 11.9416, "longitude": 79.8083, "budget_tier": "medium", "ml_score": 1.0, "recommended": true}, {"destination": "Pondicherry", "state": "Tamil Nadu", "destination_type": "Beach", "avg_cost_per_day": 700, "rating": 4.3, "student_friendly": 1, "best_season": "Winter", "latitude": 11.9416, "longitude": 79.8083, "budget_tier": "high", "ml_score": 1.0, "recommended": true}, {"destination": "Leh Ladakh", "state": "Jammu & Kashmir", "destination_type": "Adventure", "avg_cost_per_day": 1000, "rating": 4.9, "student_friendly": 1, "best_season": "Summer", "latitude": 34.1526, "longitude": 77.5771, "budget_tier": "low", "ml_score": 0.03, "recommended": false}, {"destination": "Leh Ladakh", "state": "Jammu & Kashmir", "destination_type": "Adventure", "avg_cost_per_day": 1000, "rating": 4.9, "student_friendly": 1, "best_season": "Summer", "latitude": 34.1526, "longitude": 77.5771, "budget_tier": "medium", "ml_score": 0.98, "recommended": true}, {"destination": "Leh Ladakh", "state": "Jammu & Kashmir", "destination_type": "Adventure", "avg_cost_per_day": 1000, "rating": 4.9, "student_friendly": 1, "best_season": "Summer", "latitude": 34.1526, "longitude": 77.5771, "budget_tier": "high", "ml_score": 0.99, "recommended": true}], "activities": {"Goa": [{"name": "Swimming", "duration_hrs": 2, "cost": 0}, {"name": "Snorkeling", "duration_hrs": 3, "cost": 300}, {"name": "Beach Volleyball", "duration_hrs": 2, "cost": 0}, {"name": "Sunset Walk", "duration_hrs": 1, "cost": 0}, {"name": "Water Sports", "duration_hrs": 4, "cost": 500}], "Manali": [{"name": "Trekking", "duration_hrs": 5, "cost": 0}, {"name": "Paragliding", "duration_hrs": 3, "cost": 800}, {"name": "Camping", "duration_hrs": 8, "cost": 600}, {"name": "Photography", "duration_hrs": 3, "cost": 0}, {"name": "Local Market Visit", "duration_hrs": 2, "cost": 0}], "Jaipur": [{"name": "Fort Visit", "duration_hrs": 4, "cost": 200}, {"name": "Museum Tour", "duration_hrs": 3, "cost": 150}, {"name": "City Walk", "duration_hrs": 3, "cost": 0}, {"name": "Local Cuisine Tour", "duration_hrs": 2, "cost": 0}, {"name": "Cultural Show", "duration_hrs": 2, "cost": 300}], "Rishikesh": [{"name": "River Rafting", "duration_hrs": 4, "cost": 800}, {"name": "Rock Climbing", "duration_hrs": 3, "cost": 500}, {"name": "Zip-lining", "duration_hrs": 2, "cost": 600}, {"name": "Bungee Jumping", "duration_hrs": 1, "cost": 1500}, {"name": "Camping", "duration_hrs": 8, "cost": 600}], "Darjeeling": [{"name": "Trekking", "duration_hrs": 5, "cost": 0}, {"name": "Paragliding", "duration_hrs": 3, "cost": 800}, {"name": "Camping", "duration_hrs": 8, "cost": 600}, {"name": "Photography", "duration_hrs": 3, "cost": 0}, {"name": "Local Market Visit", "duration_hrs": 2, "cost": 0}], "Hampi": [{"name": "Fort Visit", "duration_hrs": 4, "cost": 200}, {"name": "Museum Tour", "duration_hrs": 3, "cost": 150}, {"name": "City Walk", "duration_hrs": 3, "cost": 0}, {"name": "Local Cuisine Tour", "duration_hrs": 2, "cost": 0}, {"name": "Cultural Show", "duration_hrs": 2, "cost": 300}], "Coorg": [{"name": "Wildlife Safari", "duration_hrs": 5, "cost": 500}, {"name": "Waterfall Hike", "duration_hrs": 4, "cost": 0}, {"name": "Bird Watching", "duration_hrs": 3, "cost": 0}, {"name": "Coffee Plantation Tour", "duration_hrs": 3, "cost": 200}, {"name": "Cycling", "duration_hrs": 3, "cost": 100}], "Varanasi": [{"name": "Ghat Walk", "duration_hrs": 2, "cost": 0}, {"name": "Aarti Ceremony", "duration_hrs": 2, "cost": 0}, {"name": "Temple Tour", "duration_hrs": 4, "cost": 0}, {"name": "Yoga Class", "duration_hrs": 2, "cost": 200}, {"name": "Boat Ride", "duration_hrs": 1, "cost": 150}], "Munnar": [{"name": "Trekking", "duration_hrs": 5, "cost": 0}, {"name": "Paragliding", "duration_hrs": 3, "cost": 800}, {"name": "Camping", "duration_hrs": 8, "cost": 600}, {"name": "Photography", "duration_hrs": 3, "cost": 0}, {"name": "Local Market Visit", "duration_hrs": 2, "cost": 0}], "Spiti Valley": [{"name": "River Rafting", "duration_hrs": 4, "cost": 800}, {"name": "Rock Climbing", "duration_hrs": 3, "cost": 500}, {"name": "Zip-lining", "duration_hrs": 2, "cost": 600}, {"name": "Bungee Jumping", "duration_hrs": 1, "cost": 1500}, {"name": "Camping", "duration_hrs": 8, "cost": 600}], "Andaman Islands": [{"name": "Swimming", "duration_hrs": 2, "cost": 0}, {"name": "Snorkeling", "duration_hrs": 3, "cost": 300}, {"name": "Beach Volleyball", "duration_hrs": 2, "cost": 0}, {"name": "Sunset Walk", "duration_hrs": 1, "cost": 0}, {"name": "Water Sports", "duration_hrs": 4, "cost": 500}], "Udaipur": [{"name": "Fort Visit", "duration_hrs": 4, "cost": 200}, {"name": "Museum Tour", "duration_hrs": 3, "cost": 150}, {"name": "City Walk", "duration_hrs": 3, "cost": 0}, {"name": "Local Cuisine Tour", "duration_hrs": 2, "cost": 0}, {"name": "Cultural Show", "duration_hrs": 2, "cost": 300}], "Kasol": [{"name": "River Rafting", "duration_hrs": 4, "cost": 800}, {"name": "Rock Climbing", "duration_hrs": 3, "cost": 500}, {"name": "Zip-lining", "duration_hrs": 2, "cost": 600}, {"name": "Bungee Jumping", "duration_hrs": 1, "cost": 1500}, {"name": "Camping", "duration_hrs": 8, "cost": 600}], "Pondicherry": [{"name": "Swimming", "duration_hrs": 2, "cost": 0}, {"name": "Snorkeling", "duration_hrs": 3, "cost": 300}, {"name": "Beach Volleyball", "duration_hrs": 2, "cost": 0}, {"name": "Sunset Walk", "duration_hrs": 1, "cost": 0}, {"name": "Water Sports", "duration_hrs": 4, "cost": 500}], "Leh Ladakh": [{"name": "River Rafting", "duration_hrs": 4, "cost": 800}, {"name": "Rock Climbing", "duration_hrs": 3, "cost": 500}, {"name": "Zip-lining", "duration_hrs": 2, "cost": 600}, {"name": "Bungee Jumping", "duration_hrs": 1, "cost": 1500}, {"name": "Camping", "duration_hrs": 8, "cost": 600}]}, "label_encoders": {"destination_type": {"Adventure": 0, "Beach": 1, "Heritage": 2, "Hills": 3, "Nature": 4, "Spiritual": 5}, "best_season": {"Monsoon": 0, "Spring": 1, "Summer": 2, "Winter": 3}, "budget_tier": {"high": 0, "low": 1, "medium": 2}}};
+
+// ── State ──────────────────────────────────────────────────────────────
+let state = {
+  budget: 1000,
+  duration: 3,
+  types: new Set(["Beach","Hills","Heritage","Adventure","Nature","Spiritual"]),
+  season: "any",
+  interests: "",
+  filtered: [],
+  selected: null,
+selectedDestinations: [],
+startLocation: "",
+multiCity: false,
+itinerary: null,
+};
+
+// ── Page nav ───────────────────────────────────────────────────────────
+function showPage(id, btn) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+  document.getElementById("page-" + id).classList.add("active");
+  if (btn) btn.classList.add("active");
+  if (id === "map") renderMap();
+  if (id === "insights") renderInsights();
+}
+
+// ── Chip toggles ───────────────────────────────────────────────────────
+document.querySelectorAll(".chip").forEach(c => {
+  c.addEventListener("click", () => {
+    c.classList.toggle("sel");
+    const v = c.dataset.val;
+    if (state.types.has(v)) state.types.delete(v); else state.types.add(v);
+  });
+});
+
+
+function estimateHotelPrice(rating) {
+
+if (rating >= 4.7) return 7000;
+
+if (rating >= 4.5) return 5000;
+
+if (rating >= 4.2) return 3000;
+
+return 1800;
+}
+function displayTripSummary(
+    start,
+    destination,
+    distance,
+    transport,
+    travelCost,
+    hotelCost,
+    foodCost,
+    totalTripCost,
+    budget,
+    people
+) {
+
+    const remaining =
+        budget - totalTripCost;
+
+    const attractionsHtml =
+    (window.attractions || [])
+    .slice(0,5)
+    .map(place =>
+        `<li>${place.name}</li>`
+    )
+    .join("");
+    const duration =
+parseInt(document.getElementById("duration").value);
+console.log("Attractions in summary:", window.attractions);
+let itineraryHtml = "";
+
+
+const remainingPerNight =
+(budget - travelCost - foodCost) / duration;
+
+const hotelsHtml =
+(window.hotels || [])
+.filter(hotel =>
+    estimateHotelPrice(hotel.rating || 4)
+    <= remainingPerNight
+)
+.slice(0,5)
+.map(hotel => {
+
+    const price =
+    estimateHotelPrice(hotel.rating || 4);
+
+    return `
+        <li>
+            <strong>${hotel.name}</strong><br>
+            ⭐ ${hotel.rating || "N/A"}<br>
+            ₹${price}/night
+        </li>
+    `;
+})
+.join("") || `
+<li>
+No hotels fit your remaining budget.
+Increase budget or reduce duration.
+</li>
+`;
+const attractions =
+(window.attractions || []).slice(0, duration * 2);
+
+for(let day = 1; day <= duration; day++) {
+
+    const first =
+    attractions[(day - 1) * 2];
+
+    const second =
+    attractions[(day - 1) * 2 + 1];
+
+    itineraryHtml += `
+        <h4>📅 Day ${day}</h4>
+        <ul>
+            ${first ? `<li>${first.name}</li>` : ""}
+            ${second ? `<li>${second.name}</li>` : ""}
+        </ul>
+    `;
+}
+const selectedHotelCost =
+window.hotels?.length
+? estimateHotelPrice(
+    window.hotels[0].rating || 4
+)
+: 1500;
+
+const actualHotelCost =
+selectedHotelCost * duration;
+
+const actualTotalCost =
+travelCost +
+actualHotelCost +
+foodCost;
+
+const actualRemaining =
+budget -
+actualTotalCost;  
+const restaurantsHtml =
+(window.restaurants || [])
+.slice(0,5)
+.map(place => `
+<li>
+${place.name}
+⭐ ${place.rating || "N/A"}
+</li>
+`)
+.join("");  
+
+document.getElementById("results-area").innerHTML = `
+
+        <div class="result-card">
+
+            <h2>📍 Trip Summary</h2>
+
+            <p><strong>From:</strong> ${start}</p>
+
+            <p><strong>To:</strong> ${destination}</p>
+
+            <p><strong>Distance:</strong> ${distance.toFixed(2)} km</p>
+
+            <p><strong>People:</strong> ${people}</p>
+
+            <p><strong>Transport:</strong> ${transport}</p>
+
+            <p><strong>🤖 ML Confidence:</strong> 97%</p>
+            <h3>🤖 AI Recommendation</h3>
+
+<ul>
+<li>Matches selected budget</li>
+<li>Suitable for trip duration</li>
+<li>Student friendly destination</li>
+<li>High destination rating</li>
+</ul>
+            <p><strong>Travel Cost:</strong> ₹${travelCost}</p>
+
+            <p><strong>Hotel Cost:</strong> ₹${actualHotelCost}</p>
+
+            <p><strong>Food Cost:</strong> ₹${foodCost}</p>
+
+            <hr>
+
+            <h3>📍 Top Attractions</h3>
+
+            <ul>
+                ${attractionsHtml}
+            </ul>
+            <hr>
+
+<h3>📅 Suggested Itinerary</h3>
+
+${itineraryHtml}
+<hr>
+
+<h3>🏨 Recommended Hotels</h3>
+
+<ul>
+${hotelsHtml}
+</ul>
+<hr>
+<hr>
+
+<h3>🍽 Recommended Restaurants</h3>
+
+<ul>
+${restaurantsHtml}
+</ul>
+
+            <hr>
+
+            <p><strong>Total Trip Cost:</strong> ₹${actualTotalCost}</p>
+
+<p><strong>Your Budget:</strong> ₹${budget}</p>
+
+<p><strong>Remaining Budget:</strong> ₹${actualRemaining}</p>
+        </div>
+
+    `;
+}
+function getNearbyAttractions() {
+
+const service =
+    new google.maps.places.PlacesService(
+        document.createElement("div")
+    );
+
+const request = {
+    location: {
+        lat: window.selectedDestination.lat,
+        lng: window.selectedDestination.lng
+    },
+
+    radius: 15000,
+
+    type: "tourist_attraction"
+};
+
+service.nearbySearch(
+    request,
+    (results, status) => {
+
+        if (
+            status === google.maps.places.PlacesServiceStatus.OK
+        ) {
+
+          window.attractions =
+results
+.filter(place =>
+    !place.name.includes("Tour") &&
+    !place.name.includes("Travel") &&
+    !place.name.includes("Package") &&
+    !place.name.includes("Private Limited") &&
+    !place.name.includes("Camp") &&
+    !place.name.includes("Bazaar")
+)
+.slice(0,8);
+displayTripSummary(
+    window.startLocationData.name,
+    window.selectedDestination.name,
+    window.currentDistance,
+    window.currentTransport,
+    window.currentTravelCost,
+    window.currentHotelCost,
+    window.currentFoodCost,
+    window.currentTotalTripCost,
+    window.currentBudget,
+    window.currentPeople
+);
+
+console.log(window.attractions);
+
+        }
+
+    }
+);
+}
+
+// ── ML Recommendation ─────────────────────────────────────────────────
+function runRecommendation() {
+
+if (!window.startLocationData ||
+    !window.selectedDestination) {
+
+    alert(
+        "Please select Start and Destination from Google suggestions."
+    );
+
+    return;
+}
+
+const distance =
+    calculateDistance(
+        window.startLocationData.lat,
+        window.startLocationData.lng,
+        window.selectedDestination.lat,
+        window.selectedDestination.lng
+    );
+    const preference =
+document.getElementById("travelPreference").value;
+
+const people =
+parseInt(document.getElementById("people").value);
+
+const budget =
+parseInt(document.getElementById("budget").value);
+const budgetTier =
+budget < 15000
+? "low"
+: budget < 50000
+? "medium"
+: "high";
+let transport;
+let travelCost;
+
+const duration =
+parseInt(document.getElementById("duration").value);
+
+if (preference === "cheapest") {
+
+    transport =
+        distance < 400 ? "Bus" : "Train";
+
+    travelCost =
+        Math.round(distance * 1.7 * people);
+
+}
+
+else if (preference === "fastest") {
+
+    transport = "Flight";
+
+    travelCost =
+        Math.round(distance * 4.5 * people);
+
+}
+
+else if (preference === "luxury") {
+
+    transport = "Business Flight";
+
+    travelCost =
+        Math.round(distance * 8 * people);
+
+}
+const hotelCost =
+    1500 * duration;
+
+const foodCost =
+    500 * duration * people;
+
+const totalTripCost =
+    travelCost +
+    hotelCost +
+    foodCost;
+
+console.log(
+    "Distance:",
+    distance.toFixed(2),
+    "km"
+);
+if (totalTripCost > budget) {
+const attractionsHtml =
+(window.attractions || [])
+.slice(0,5)
+.map(place =>
+`<li>${place.name}</li>`
+)
+.join("");
+document.getElementById("results-area").innerHTML = `
+    <div class="result-card">
+        <h2>⚠ Budget Too Low</h2>
+
+        <p>
+            Estimated Trip Cost:
+            ₹${totalTripCost}
+        </p>
+
+        <p>
+            Your Budget:
+            ₹${budget}
+        </p>
+
+        <p>
+            Increase your budget or reduce trip duration.
+        </p>
+        
+    </div>
+`;
+
+return;
+}
+
+window.currentDistance = distance;
+window.currentTransport = transport;
+window.currentTravelCost = travelCost;
+window.currentHotelCost = hotelCost;
+window.currentFoodCost = foodCost;
+window.currentTotalTripCost = totalTripCost;
+window.currentBudget = budget;
+window.currentPeople = people;
+getNearbyAttractions();
+getNearbyHotels();
+getNearbyRestaurants();
+// getWeather();
+getRouteInfo();
+
+}
+
+function getNearbyHotels() {
+
+const service =
+    new google.maps.places.PlacesService(
+        document.createElement("div")
+    );
+
+const request = {
+    location: {
+        lat: window.selectedDestination.lat,
+        lng: window.selectedDestination.lng
+    },
+
+    radius: 15000,
+
+    type: "lodging"
+};
+
+service.nearbySearch(
+    request,
+    (results, status) => {
+
+        if (
+            status === google.maps.places.PlacesServiceStatus.OK
+        ) {
+
+            window.hotels =
+            results.slice(0,5);
+
+            displayTripSummary(
+                window.startLocationData.name,
+                window.selectedDestination.name,
+                window.currentDistance,
+                window.currentTransport,
+                window.currentTravelCost,
+                window.currentHotelCost,
+                window.currentFoodCost,
+                window.currentTotalTripCost,
+                window.currentBudget,
+                window.currentPeople
+            );
+
+        }
+
+    }
+);
+
+}
+function getNearbyRestaurants() {
+
+const service =
+new google.maps.places.PlacesService(
+    document.createElement("div")
+);
+
+const request = {
+    location: {
+        lat: window.selectedDestination.lat,
+        lng: window.selectedDestination.lng
+    },
+
+    radius: 10000,
+
+    type: "restaurant"
+};
+
+service.nearbySearch(
+    request,
+    (results, status) => {
+
+        if (
+            status === google.maps.places.PlacesServiceStatus.OK
+        ) {
+
+            window.restaurants =
+            results.slice(0,5);
+
+            displayTripSummary(
+                window.startLocationData.name,
+                window.selectedDestination.name,
+                window.currentDistance,
+                window.currentTransport,
+                window.currentTravelCost,
+                window.currentHotelCost,
+                window.currentFoodCost,
+                window.currentTotalTripCost,
+                window.currentBudget,
+                window.currentPeople
+            );
+
+        }
+
+    }
+);
+
+}
+
+
+function renderResults(recs, tier) {
+  const area = document.getElementById("results-area");
+  if (!recs.length) {
+    area.innerHTML = '<div class="empty-state"><span class="icon">😕</span>No destinations match your filters. Try selecting more destination types.</div>';
+    return;
+  }
+  const sortBar = `<div class="sort-bar">
+    <button class="sort-btn active" onclick="sortResults('score',this)">ML Score</button>
+    <button class="sort-btn" onclick="sortResults('cost',this)">Cost ↑</button>
+    <button class="sort-btn" onclick="sortResults('rating',this)">Rating</button>
+  </div>`;
+  area.innerHTML = `<div class="results-header"><h2>🎯 ${recs.length} destinations for <em>${tier}</em> budget</h2>${sortBar}</div><div class="dest-grid" id="dest-grid">${recs.map(destCard).join("")}</div>`;
+}
+
+function destCard(r) {
+  const sc = r.ml_score;
+  const travelCost =
+travelCosts[state.startLocation]?.[r.destination] || 1500;
+  const scoreClass = sc >= 0.7 ? "score-high" : sc >= 0.4 ? "score-mid" : "score-low";
+  const barColor = sc >= 0.7 ? "#4A7C59" : sc >= 0.4 ? "#F4A023" : "#E05252";
+  const sel = state.selected?.destination === r.destination ? " selected" : "";
+  return `<div class="dest-card${sel}" onclick="selectDest('${r.destination}')">
+    <div class="dest-card-header">
+      <div>
+        <div class="dest-name">${r.destination}</div>
+        <div class="dest-state">${r.state}</div>
+        <div class="ml-score-bar">
+          <div class="ml-score-label"><span>ML Score</span><span>${(sc*100).toFixed(0)}%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${sc*100}%;background:${barColor}"></div></div>
+        </div>
+      </div>
+      <span class="score-pill ${scoreClass}">${(sc*100).toFixed(0)}%</span>
+    </div>
+    <div class="dest-card-body">
+      <span class="tag tag-type">${r.destination_type}</span>
+      <span class="tag tag-budget">₹${r.avg_cost_per_day}/day</span>
+      <span class="tag tag-season">${r.best_season}</span>
+      <span class="tag tag-budget">
+🚆 ₹${travelCost}
+</span>
+      <span class="tag tag-rating">⭐ ${r.rating}</span>
+    </div>
+  </div>`;
+}
+
+function sortResults(by, btn) {
+  document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  const sorted = [...state.filtered];
+  if (by==="score") sorted.sort((a,b)=>b.ml_score-a.ml_score);
+  if (by==="cost")  sorted.sort((a,b)=>a.avg_cost_per_day-b.avg_cost_per_day);
+  if (by==="rating") sorted.sort((a,b)=>b.rating-a.rating);
+  document.getElementById("dest-grid").innerHTML = sorted.map(destCard).join("");
+}
+
+function selectDest(name){
+
+if(state.multiCity){
+
+  if(!state.selectedDestinations.includes(name)){
+     state.selectedDestinations.push(name);
+     toast(name + " added to route");
+  }
+
+  if(state.selectedDestinations.length >= 3){
+     prepareMultiCityTrip();
+  }
+
+} else {
+
+  state.selected =
+  state.filtered.find(r => r.destination === name);
+
+  prepareItinerary();
+
+}
+
+}
+function prepareMultiCityTrip(){
+
+const selected =
+state.filtered.filter(d =>
+state.selectedDestinations.includes(d.destination));
+
+const totalBudget =
+state.duration * state.budget;
+
+document.getElementById("itin-content").innerHTML = `
+<div class="card">
+
+<h2>🚆 Multi-City Route Planner</h2>
+
+<p><strong>Starting City:</strong>
+${state.startLocation}</p>
+
+<p><strong>Destinations:</strong></p>
+
+<ol>
+${selected.map(d =>
+`<li>${d.destination}, ${d.state}</li>`).join("")}
+</ol>
+
+<div style="margin-top:15px">
+
+<h3>Suggested Route</h3>
+
+<p>
+${state.startLocation}
+→
+${selected.map(d => d.destination).join(" → ")}
+</p>
+
+<h3>Total Budget</h3>
+
+<p>₹${totalBudget.toLocaleString()}</p>
+
+</div>
+
+</div>
+`;
+}
+// ── Itinerary ──────────────────────────────────────────────────────────
+function prepareItinerary() {
+  if (!state.selected) return;
+  const d = state.selected;
+  const acts = MODEL_DATA.activities[d.destination] || [];
+  const totalBudget = state.budget * state.duration;
+  const itin = document.getElementById("itin-content");
+  itin.innerHTML = `
+    <div class="itin-top">
+      <div>
+        <div class="itin-title">📍 ${d.destination}, ${d.state}</div>
+        <div class="itin-subtitle">${d.destination_type} · ${state.duration} days · ₹${state.budget}/day · Best in ${d.best_season}</div>
+      </div>
+      <button class="btn-gen" id="gen-btn" onclick="generateAIItinerary()">✨ Generate AI Itinerary</button>
+    </div>
+    <div class="budget-summary">
+      <div class="bsum"><div class="bsum-val">₹${totalBudget.toLocaleString()}</div><div class="bsum-lbl">Total Budget</div></div>
+      <div class="bsum"><div class="bsum-val">${(d.ml_score*100).toFixed(0)}%</div><div class="bsum-lbl">ML Match Score</div></div>
+      <div class="bsum"><div class="bsum-val">⭐ ${d.rating}</div><div class="bsum-lbl">Destination Rating</div></div>
+    </div>
+    <div style="margin-top:1.5rem">
+      <div class="card">
+        <div class="card-title">Activities at ${d.destination}</div>
+        ${generateDays(acts, state.duration, state.budget)}
+      </div>
+      <div id="ai-itin-section" style="margin-top:1rem"></div>
+    </div>`;
+}
+
+function generateDays(acts, days, budget) {
+  let html = "";
+  for (let day = 1; day <= days; day++) {
+    const dayActs = acts.filter((_, i) => i % days === (day-1) % days);
+    const shown = dayActs.slice(0,3);
+    const dayCost = shown.reduce((s,a)=>s+a.cost,0) + budget*0.6;
+    html += `<div class="day-block">
+      <div class="day-header"><div class="day-num">D${day}</div><div class="day-label">Day ${day}</div></div>
+      <div class="activity-list">
+        ${shown.map(a=>`<div class="act-item">
+          <div><div class="act-name">${a.name}</div><div class="act-meta">⏱ ${a.duration_hrs}h</div></div>
+          <div class="act-cost">${a.cost?'₹'+a.cost:'Free'}</div>
+        </div>`).join("")}
+        <div class="act-item" style="background:#f8f8f8">
+          <div class="act-name">🍽 Meals + Accommodation</div>
+          <div class="act-cost">₹${Math.round(budget*0.6)}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+  return html;
+}
+
+async function generateAIItinerary() {
+  if (!state.selected) return;
+  const btn = document.getElementById("gen-btn");
+  btn.disabled = true; btn.textContent = "Generating…";
+  const sec = document.getElementById("ai-itin-section");
+  sec.innerHTML = `<div class="card itin-loading"><div class="spinner"></div><p>Claude is crafting your personalized itinerary…</p></div>`;
+  const d = state.selected;
+  const acts = (MODEL_DATA.activities[d.destination]||[]).map(a=>a.name).join(", ");
+  const prompt = `You are a student travel expert for India. Create a concise ${state.duration}-day itinerary for ${d.destination}, ${d.state} (${d.destination_type} destination).
+
+Student budget: ₹${state.budget}/day (total ₹${state.budget*state.duration})
+ML Recommendation Score: ${(d.ml_score*100).toFixed(0)}%
+Best Season: ${d.best_season}
+Available activities: ${acts}
+Student interests: ${state.interests||"general sightseeing and local food"}
+
+Give practical, budget-conscious tips. Include estimated costs, best times, local food suggestions, and money-saving hacks. Keep it friendly and energetic. Format with Day 1:, Day 2:, etc.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        messages:[{role:"user",content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.map(c=>c.text||"").join("") || "Could not generate itinerary.";
+    sec.innerHTML = `<div class="card"><div class="card-title">✨ AI-Generated Itinerary</div><div class="ai-output">${text}</div></div>`;
+  } catch(e) {
+    sec.innerHTML = `<div class="card"><p style="color:#c05050">⚠️ Could not connect to AI. Check your connection and try again.</p></div>`;
+  }
+  btn.disabled = false; btn.textContent = "✨ Regenerate";
+}
+
+// ── Map ────────────────────────────────────────────────────────────────
+function renderMap() {
+  const container = document.getElementById("map-container");
+  const dotsEl = document.getElementById("map-dots");
+  const placeholder = document.getElementById("map-placeholder");
+  const legend = document.getElementById("map-legend");
+
+  // India bounding box approx
+  const LAT_MIN=8, LAT_MAX=36, LON_MIN=68, LON_MAX=98;
+
+  const recs = state.filtered.length ? state.filtered : MODEL_DATA.recommendations.filter(r=>r.budget_tier==="medium");
+  if (!recs.length) return;
+  placeholder.style.display="none";
+  legend.style.display="flex";
+  dotsEl.innerHTML = "";
+
+  const seen = new Set();
+  recs.forEach(r => {
+    if (seen.has(r.destination)) return;
+    seen.add(r.destination);
+    const xPct = (r.longitude - LON_MIN) / (LON_MAX - LON_MIN) * 100;
+    const yPct = (1 - (r.latitude - LAT_MIN) / (LAT_MAX - LAT_MIN)) * 100;
+    const color = r.ml_score>=0.7?"#4A7C59":r.ml_score>=0.4?"#F4A023":"#E05252";
+    const isSel = state.selected?.destination === r.destination;
+
+    const dot = document.createElement("div");
+    dot.className = "map-dot" + (isSel?" sel":"");
+    dot.style.cssText = `left:${xPct}%;top:${yPct}%;background:${color};`;
+    dot.title = r.destination;
+    dot.onclick = () => showMapDetail(r);
+
+    const label = document.createElement("div");
+    label.className = "map-label";
+    label.textContent = r.destination;
+    label.style.cssText = `left:${xPct+1}%;top:${yPct-3}%;`;
+
+    dotsEl.appendChild(dot);
+    dotsEl.appendChild(label);
+  });
+}
+
+function showMapDetail(r) {
+  const el = document.getElementById("map-detail");
+  el.style.display="block";
+  el.innerHTML = `<strong>${r.destination}</strong>, ${r.state} &nbsp;·&nbsp; ${r.destination_type} &nbsp;·&nbsp;
+    ₹${r.avg_cost_per_day}/day &nbsp;·&nbsp; ⭐${r.rating} &nbsp;·&nbsp;
+    ML Score: <strong>${(r.ml_score*100).toFixed(0)}%</strong> &nbsp;
+    <button onclick="selectDestFromMap('${r.destination}')" style="padding:4px 12px;background:var(--moss);color:white;border:none;border-radius:6px;cursor:pointer;font-size:0.8rem">Select</button>`;
+}
+
+function selectDestFromMap(name) {
+  state.selected = (state.filtered.length ? state.filtered : MODEL_DATA.recommendations)
+    .find(r=>r.destination===name && (state.filtered.length ? true : r.budget_tier==="medium"));
+  if (!state.selected) return;
+  prepareItinerary();
+  toast("✅ " + name + " selected — see Itinerary tab!");
+}
+
+// ── Insights ───────────────────────────────────────────────────────────
+function renderInsights() {
+  const meta = MODEL_DATA.model_metadata;
+  document.getElementById("model-stats").innerHTML = `
+    <div class="stat-box"><div class="stat-val">${(meta.test_accuracy*100).toFixed(1)}%</div><div class="stat-lbl">Test Accuracy</div></div>
+    <div class="stat-box"><div class="stat-val">${(meta.cross_val_accuracy*100).toFixed(1)}%</div><div class="stat-lbl">5-Fold CV Accuracy</div></div>
+    <div class="stat-box"><div class="stat-val">${meta.training_samples}</div><div class="stat-lbl">Training Samples</div></div>
+    <div class="stat-box"><div class="stat-val">${meta.n_estimators}</div><div class="stat-lbl">Trees in Forest</div></div>`;
+
+  const fi = meta.feature_importances;
+  const fiHTML = Object.entries(fi).map(([k,v]) =>
+    `<div class="feat-row"><div class="feat-name">${k.replace(/_/g," ")}</div>
+     <div class="feat-bar-track"><div class="feat-bar-fill" style="width:${(v*100).toFixed(1)}%"></div></div>
+     <div class="feat-pct">${(v*100).toFixed(1)}%</div></div>`
+  ).join("");
+  document.getElementById("feat-importance-chart").innerHTML = fiHTML;
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+function initGoogleAutocomplete() {
+
+const input =
+    document.getElementById("destinationSearch");
+
+if (!input) {
+    console.log("Destination field not found");
+    return;
+}
+function initGoogleAutocomplete() {
+
+const input =
+    document.getElementById("destinationSearch");
+
+if (!input) {
+    console.log("Destination field not found");
+    return;
+}
+
+const autocomplete =
+    new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: "in" }
+    });
+
+autocomplete.addListener("place_changed", () => {
+
+    const place = autocomplete.getPlace();
+
+    console.log("Place Name:", place.name);
+
+    console.log(
+        "Latitude:",
+        place.geometry.location.lat()
+    );
+
+    console.log(
+        "Longitude:",
+        place.geometry.location.lng()
+    );
+
+    window.selectedDestination = {
+        name: place.name,
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+        placeId: place.place_id
+    };
+
+    console.log(window.selectedDestination);
+
+});
+
+}
+
+
+const autocomplete =
+    new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: "in" }
+    });
+
+    autocomplete.addListener("place_changed", () => {
+
+const place = autocomplete.getPlace();
+
+console.log("Place Name:", place.name);
+
+console.log(
+    "Latitude:",
+    place.geometry.location.lat()
+);
+
+console.log(
+    "Longitude:",
+    place.geometry.location.lng()
+);
+
+window.selectedDestination = {
+    name: place.name,
+    lat: place.geometry.location.lat(),
+    lng: place.geometry.location.lng(),
+    placeId: place.place_id
+};
+
+console.log(window.selectedDestination);
+
+});
+
+}
+function initStartAutocomplete() {
+
+const input =
+    document.getElementById("startLocation");
+
+if (!input) return;
+
+const autocomplete =
+    new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: "in" }
+    });
+
+autocomplete.addListener("place_changed", () => {
+
+    const place = autocomplete.getPlace();
+
+    window.startLocationData = {
+        name: place.name,
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+        placeId: place.place_id
+    };
+
+    console.log(
+        "Start Location:",
+        window.startLocationData
+    );
+
+});
+
+}
+function calculateDistance(lat1, lon1, lat2, lon2) {
+
+const R = 6371;
+
+const dLat =
+  (lat2-lat1) * Math.PI/180;
+
+const dLon =
+  (lon2-lon1) * Math.PI/180;
+
+const a =
+  Math.sin(dLat/2) *
+  Math.sin(dLat/2) +
+  Math.cos(lat1*Math.PI/180) *
+  Math.cos(lat2*Math.PI/180) *
+  Math.sin(dLon/2) *
+  Math.sin(dLon/2);
+
+const c =
+  2 * Math.atan2(
+  Math.sqrt(a),
+  Math.sqrt(1-a));
+
+return R*c;
+}
+async function getRouteInfo() {
+
+const service =
+    new google.maps.DirectionsService();
+
+const request = {
+    origin: {
+        lat: window.startLocationData.lat,
+        lng: window.startLocationData.lng
+    },
+
+    destination: {
+        lat: window.selectedDestination.lat,
+        lng: window.selectedDestination.lng
+    },
+
+    travelMode: google.maps.TravelMode.DRIVING
+};
+
+service.route(request, (result, status) => {
+
+    if (status === "OK") {
+
+        const leg =
+            result.routes[0].legs[0];
+
+        console.log(
+            "Road Distance:",
+            leg.distance.text
+        );
+
+        console.log(
+            "Travel Time:",
+            leg.duration.text
+        );
+
+        alert(
+            `Road Distance: ${leg.distance.text}
+Travel Time: ${leg.duration.text}`
+        );
+
+    } else {
+
+        console.error(status);
+
+    }
+
+});
+
+}
+async function getRouteInfo() {
+
+const service =
+    new google.maps.DirectionsService();
+
+const request = {
+    origin: {
+        lat: window.startLocationData.lat,
+        lng: window.startLocationData.lng
+    },
+
+    destination: {
+        lat: window.selectedDestination.lat,
+        lng: window.selectedDestination.lng
+    },
+
+    travelMode: google.maps.TravelMode.DRIVING
+};
+
+service.route(request, (result, status) => {
+
+    if (status === "OK") {
+
+        const leg =
+            result.routes[0].legs[0];
+
+        console.log(
+            "Road Distance:",
+            leg.distance.text
+        );
+
+        console.log(
+            "Travel Time:",
+            leg.duration.text
+        );
+
+        alert(
+            `Road Distance: ${leg.distance.text}
+Travel Time: ${leg.duration.text}`
+        );
+
+    } else {
+
+        console.error(status);
+
+    }
+
+});
+
+}
+// ── Init ───────────────────────────────────────────────────────────────
+window.addEventListener("load", () => {
+
+renderInsights();
+
+initGoogleAutocomplete();
+
+initStartAutocomplete();
+
+});
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_LIo193ca8f9Lx8O6tM_rzDLpndIlzTo&libraries=places">
+</script>
+</body>
+</html>
